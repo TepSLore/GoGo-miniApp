@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/GoGo-miniApp/static/css/main.7310ba1e.chunk.css",
+    "main.js": "/GoGo-miniApp/static/js/main.c6d36757.chunk.js",
+    "main.js.map": "/GoGo-miniApp/static/js/main.c6d36757.chunk.js.map",
+    "runtime-main.js": "/GoGo-miniApp/static/js/runtime-main.15a61242.js",
+    "runtime-main.js.map": "/GoGo-miniApp/static/js/runtime-main.15a61242.js.map",
+    "static/css/2.a2ab3232.chunk.css": "/GoGo-miniApp/static/css/2.a2ab3232.chunk.css",
+    "static/js/2.9aa84379.chunk.js": "/GoGo-miniApp/static/js/2.9aa84379.chunk.js",
+    "static/js/2.9aa84379.chunk.js.map": "/GoGo-miniApp/static/js/2.9aa84379.chunk.js.map",
+    "index.html": "/GoGo-miniApp/index.html",
+    "static/css/2.a2ab3232.chunk.css.map": "/GoGo-miniApp/static/css/2.a2ab3232.chunk.css.map",
+    "static/css/main.7310ba1e.chunk.css.map": "/GoGo-miniApp/static/css/main.7310ba1e.chunk.css.map",
+    "static/js/2.9aa84379.chunk.js.LICENSE.txt": "/GoGo-miniApp/static/js/2.9aa84379.chunk.js.LICENSE.txt",
+    "static/media/persik.ae9f0072.png": "/GoGo-miniApp/static/media/persik.ae9f0072.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.15a61242.js",
+    "static/css/2.a2ab3232.chunk.css",
+    "static/js/2.9aa84379.chunk.js",
+    "static/css/main.7310ba1e.chunk.css",
+    "static/js/main.c6d36757.chunk.js"
+  ]
+}
