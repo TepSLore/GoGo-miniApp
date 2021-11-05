@@ -8657,11 +8657,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-letter-spacing": 0.01
@@ -8905,11 +8905,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-font": [
@@ -8995,11 +8995,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ]
       },
@@ -9078,11 +9078,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-font": [
@@ -9303,11 +9303,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ]
       },
@@ -9474,11 +9474,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ]
       },
@@ -9574,11 +9574,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-letter-spacing": [
@@ -9841,11 +9841,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ]
       },
@@ -10137,11 +10137,11 @@
               "coalesce",
               [
                 "get",
-                "name_en"
+                "name_ru"
               ],
               [
                 "get",
-                "name"
+                "name_ru"
               ]
             ],
             ""
@@ -10162,11 +10162,11 @@
               "coalesce",
               [
                 "get",
-                "name_en"
+                "name_ru"
               ],
               [
                 "get",
-                "name"
+                "name_ru"
               ]
             ]
           ],
@@ -10175,11 +10175,11 @@
             "coalesce",
             [
               "get",
-              "name_en"
+              "name_ru"
             ],
             [
               "get",
-              "name"
+              "name_ru"
             ]
           ]
         ],
@@ -10298,11 +10298,11 @@
             "coalesce",
             [
               "get",
-              "name_en"
+              "name_ru"
             ],
             [
               "get",
-              "name"
+              "name_ru"
             ]
           ],
           15,
@@ -10352,11 +10352,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-transform": "uppercase",
@@ -10850,11 +10850,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-max-width": 7,
@@ -11007,11 +11007,11 @@
               "coalesce",
               [
                 "get",
-                "name_en"
+                "name_ru"
               ],
               [
                 "get",
-                "name"
+                "name_ru"
               ]
             ],
             5,
@@ -11023,11 +11023,11 @@
               ],
               [
                 "get",
-                "name_en"
+                "name_ru"
               ],
               [
                 "get",
-                "name"
+                "name_ru"
               ]
             ]
           ],
@@ -11036,11 +11036,11 @@
             "coalesce",
             [
               "get",
-              "name_en"
+              "name_ru"
             ],
             [
               "get",
-              "name"
+              "name_ru"
             ]
           ]
         ],
@@ -11075,11 +11075,11 @@
           "coalesce",
           [
             "get",
-            "name_en"
+            "name_ru"
           ],
           [
             "get",
-            "name"
+            "name_ru"
           ]
         ],
         "text-line-height": 1.1,

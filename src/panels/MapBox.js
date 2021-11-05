@@ -3,7 +3,8 @@ import mapboxgl from '!mapbox-gl';
 import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGVwc2xvcmUiLCJhIjoiY2t2M3B5YzhuNGE4bTJvczcxcHl0OGduZyJ9.Wy0faVduOFtH1QVImTdDVQ';
-export default function MapBox(props) {
+
+function MapBox(props) {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(60.68743133544922);
@@ -18,6 +19,19 @@ export default function MapBox(props) {
             center: [lng, lat],
             zoom: zoom
         });
+
+        map.current.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true, 
+                },
+                // When active the map will receive updates to the device's location as it changes.
+                trackUserLocation: true,
+                // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                showUserHeading: true,
+                auto: true
+            })
+        );
     });
 
     useEffect(() => {
@@ -37,12 +51,11 @@ export default function MapBox(props) {
 			MapBox
 		    </PanelHeader>
             <div>
-                <div className="sidebar">
-                    Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-                </div>
                 <div ref={mapContainer} className="map-container" />
             </div>
 	    </Panel>
     );
 }
+
+export default MapBox
 
