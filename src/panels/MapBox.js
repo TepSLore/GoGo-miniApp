@@ -16,22 +16,29 @@ function MapBox(props) {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'https://raw.githubusercontent.com/TepSLore/mapboxStyle/main/mapbox-styles.json',
-            center: [lng, lat],
-            zoom: zoom
+            center: [88.57615903607801, 61.392013415571995],
+            zoom: 5
         });
 
-        map.current.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true, 
-                },
-                // When active the map will receive updates to the device's location as it changes.
-                trackUserLocation: true,
-                // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                showUserHeading: true
-            })
-        );
+        get_user_location();
     });
+
+    function get_user_location(){
+        var geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true, 
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+        })
+
+        map.current.addControl(geolocate);
+        map.current.on('load', function() {
+            geolocate.trigger(); //<- Automatically activates geolocation
+        });
+    };
 
     useEffect(() => {
     if (!map.current) return; // wait for map to initialize
