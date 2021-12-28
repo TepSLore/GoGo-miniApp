@@ -4,12 +4,15 @@ import { View, ScreenSpinner, AdaptivityProvider, AppRoot } from '@vkontakte/vku
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
-import MapBox from "./panels/MapBox";
+import MapBox from "./panels/MapboxPage/MapBox";
+import LoadingPage from './panels/LoadingPage/LoadingPage';
+import ContactPage from './panels/Contact/Contact';
+import NewsPage from './panels/News/NewsPage';
+import AccountPage from './panels/AccountPage/AccountPage'
 
 
 const App = () => {
-	const [activePanel, setActivePanel] = useState('home');
+	const [activePanel, setActivePanel] = useState('loadingPage');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 	
@@ -29,17 +32,21 @@ const App = () => {
 		fetchData();
 	}, []);
 
-	const go = e => {
+	function go (e) {
 		setActivePanel(e.currentTarget.dataset.to);
-	};
+	}
+
 	//popout={popout} вставить в view чтобы крутилось говно
 	return (
 		<AdaptivityProvider>
 			<AppRoot>
-				<View activePanel={activePanel} > 
+				<View activePanel={activePanel} >
+					<LoadingPage id='loadingPage' fetchedUser={fetchedUser} go={go} />
+					<ContactPage id='contactPage' fetchedUser={fetchedUser} go={go} />
 					<Home id='home' fetchedUser={fetchedUser} go={go} />
-					<Persik id='persik' go={go} />
-					<MapBox id='mapbox' go={go} />
+					<MapBox id='mapbox' fetchedUser={fetchedUser} go={go} />
+					<NewsPage id='newsPage' fetchedUser={fetchedUser} go={go} />
+					<AccountPage id='accountPage' fetchedUser={fetchedUser} go={go} />
 				</View>
 			</AppRoot>
 		</AdaptivityProvider>

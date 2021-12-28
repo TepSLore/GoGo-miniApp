@@ -1,0 +1,14 @@
+.QR-code{
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width:250px;
+    height:250px;
+}
+
+.QR-code_img{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    align-items: center;
+}
