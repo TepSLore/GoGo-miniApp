@@ -1,29 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useRef } from 'react';
+import AppUser from '../../modules/UserDataList';
+import MapBoxControl from '../../modules/Mapbox/Mapbox-control';
 
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 
 import "./LoadingPage.css"
 
-const LoadingPage = ({id, go, fetchedUser}) => (
-    <Panel id={id}  onClick={go} data-to="mapbox">
-		<div className='body'>
-			<div className='logo' />
-		</div> 
-    </Panel>
-);
 
-LoadingPage.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
+let instance_initiated = false;
+let control = null;
+
+function LoadingPage({id, go, fetchedUser, userFriends}) {
+	if(!instance_initiated){
+		control = new MapBoxControl();
+	}
+	else{
+		useRef();
+        useRef();
+	}
+
+	setTimeout(() => {
+		if(Object.keys(AppUser).includes(String(fetchedUser.id))){
+			console.log("Обновляю существующего пользователя");
+			AppUser[fetchedUser.id].active = true;
+			
+		} else{
+			console.log("Добавляю нового пользователя");
+			AppUser[fetchedUser.id] = {
+											"active" : true,
+											"position" : [null, null],
+											"road" : null,
+											"mapbox" : { 
+												"instance" : control
+											},
+											"siteID" : 159648
+										};
+		};
+	}, 1000);
+
+	return(
+		<Panel id={id}  onClick={go} data-to="mapbox">
+			<div className='body'>
+				<div className='logo' />
+			</div> 
+		</Panel>
+	);
 };
+
 
 export default LoadingPage;

@@ -5,6 +5,7 @@ import MapboxControl from "../../modules/Mapbox/Mapbox-control";
 import {Icon20QrCodeOutline, Icon28Profile, Icon20ArticleBoxOutline, Icon24LocationOutline, Icon24Newsfeed, Icon16CancelCircleOutline, Icon28LocationMapOutline, Icon56MoneyTransferOutline, Icon28AccessibilityOutline } from '@vkontakte/icons';
 import all_geojsons from '../../roads/Geojsons';
 import GetQRCode from '../../modules/QrCodes/generateQR';
+import AppUser from '../../modules/UserDataList';
 
 import './Mapbox.css'
 
@@ -17,33 +18,17 @@ function MapBox(props) {
     const onClose = () => setPopout(null);
     const iconsTargetRef = useRef();
     const baseTargetRef = useRef();
-    
-    var p = props;
+    let p = props;
+    control = AppUser[fetchedUser.id].mapbox.instance;
+    console.log(control.id);
+    mapCont = control.init(fetchedUser);
+    control.update_user_location(4, true);
 
-    if(!map_initialised){
-        control = new MapboxControl();
-        mapCont = control.init(); //инициализация мапбокса, требуется время для подгрузки
-        control.update_user_location(2, false);
-        map_initialised = true;
-    } else{
-        useRef();
-        useRef();
-        useEffect(() => {
-            console.log("Обманка");
-        });
-    };
-    
     const openBase = () => {
         console.log('OpenBase')
         setPopout(
             <ActionSheet
                 onClose={onClose}
-                iosCloseItem={
-                    <ActionSheetItem autoclose mode="cancel">
-                        Отменить
-                    </ActionSheetItem>
-                }
-                toggleRef={baseTargetRef}
                 className='scroll-pannel'>
                 <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Kalin_shartash) }} autoclose>Покажи калин</ActionSheetItem>
                 <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Ubileyniy) }} autoclose>Покажи юбилейный</ActionSheetItem>
@@ -58,14 +43,10 @@ function MapBox(props) {
         setPopout(
             <ActionSheet
                 onClose={onClose}
-                iosCloseItem={
-                    <ActionSheetItem autoclose mode="cancel">
-                        Отменить
-                    </ActionSheetItem>
-                }
+
                 toggleRef={baseTargetRef}
                 className='scroll-pannel'>
-                <button className='bt_actionSheet' onClick={p.go} data-to="accountPage"><ActionSheetItem autoclose before={<Icon28Profile />}>Профиль</ActionSheetItem></button>
+                <button className='bt_actionSheet' onClick={p.go} data-to="accountPage"><ActionSheetItem before={<Icon28Profile />}>Профиль</ActionSheetItem></button>
                 <button className='bt_actionSheet' ><ActionSheetItem autoclose before={<Icon28LocationMapOutline />} getRootRef={baseTargetRef} onClick={openBase}>Маршруты</ActionSheetItem></button>
                 <button className='bt_actionSheet' onClick={p.go} data-to="contactPage"><ActionSheetItem autoclose before={<Icon28AccessibilityOutline width={28} height={28} />}>Контакты</ActionSheetItem></button>
                 <button className='bt_actionSheet' onClick={p.go} data-to="newsPage"><ActionSheetItem autoclose before={<Icon24Newsfeed width={28} height={28} />}>Новости</ActionSheetItem></button>
@@ -106,7 +87,7 @@ function MapBox(props) {
                 </PanelHeader>
 
                 <div>
-                    <div id="map" ref={mapCont} className="map-container">
+                    <div id="map" ref={mapCont} className="map-container" >
                         <div className="control-buttons">
                             <Button className='button' getRootRef={baseTargetRef} onClick={openBase}>
                                 <Icon20ArticleBoxOutline width={20} height={20} />

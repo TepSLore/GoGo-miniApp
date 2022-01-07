@@ -14,3 +14,9 @@
     width: 300px;
     height: 200px;
 }
+.map-container {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    margin: 0px auto;
+}

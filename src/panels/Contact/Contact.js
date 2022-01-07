@@ -3,39 +3,44 @@ import PropTypes from 'prop-types';
 
 import {Panel, PanelHeader,PanelHeaderButton, Cell, Header, Group, Button, CellButton, Avatar} from '@vkontakte/vkui';
 import { Icon28UserAddOutline, Icon20ArrowLeftOutline} from '@vkontakte/icons';
+import AppUser from '../../modules/UserDataList';
 
 
 
-const ContactPage = ({id, go, fetchedUser}) => (
-    <Panel id={id}>
-        <PanelHeader 
-            left={
-                <PanelHeaderButton onClick={go} data-to="mapbox">
-                    <Icon20ArrowLeftOutline />
-                </PanelHeaderButton>
-                }>
-                Контакты
-        </PanelHeader>
-        <Group
-        header={<Header>Запрос в команду</Header>}>
-            <Cell mode="selectable" before={<Avatar />}>
-                Артур Стамбульцян
-            </Cell>
-            <Cell mode="selectable" before={<Avatar />}>
-                Игорь Федоров
-            </Cell>
-            <Cell mode="selectable" before={<Avatar />}>
-                Михаил Лихачев
-            </Cell>
-            <CellButton>Добавить в группу</CellButton>
-        </Group>
-        <Group
-        header={<Header>Команда</Header>}>
-            
-            <CellButton mode="danger">Удалить из команды</CellButton>
-        </Group>
-    </Panel>
-);
+const ContactPage = ({id, go, fetchedUser}) => {
+    let control = AppUser[fetchedUser.id].mapbox.instance;
+    control.map_initiated = false;
+    return(
+        <Panel id={id}>
+            <PanelHeader 
+                left={
+                    <PanelHeaderButton onClick={go} data-to="mapbox">
+                        <Icon20ArrowLeftOutline />
+                    </PanelHeaderButton>
+                    }>
+                    Контакты
+            </PanelHeader>
+            <Group
+            header={<Header>Запрос в команду</Header>}>
+                <Cell mode="selectable" before={<Avatar />}>
+                    Артур Стамбульцян
+                </Cell>
+                <Cell mode="selectable" before={<Avatar />}>
+                    Игорь Федоров
+                </Cell>
+                <Cell mode="selectable" before={<Avatar />}>
+                    Михаил Лихачев
+                </Cell>
+                <CellButton>Добавить в группу</CellButton>
+            </Group>
+            <Group
+            header={<Header>Команда</Header>}>
+                
+                <CellButton mode="danger">Удалить из команды</CellButton>
+            </Group>
+        </Panel>
+    );
+};
 
 ContactPage.propTypes = {
 	id: PropTypes.string.isRequired,

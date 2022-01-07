@@ -10,11 +10,10 @@ import ContactPage from './panels/Contact/Contact';
 import NewsPage from './panels/News/NewsPage';
 import AccountPage from './panels/AccountPage/AccountPage'
 
-
 const App = () => {
 	const [activePanel, setActivePanel] = useState('loadingPage');
 	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [userFriends, setUserFriend] = useState(null);
 	
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -24,10 +23,13 @@ const App = () => {
 				document.body.attributes.setNamedItem(schemeAttribute);
 			}
 		});
+
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
-			setPopout(null);
+			console.log("User info is requested");
+			//const friends = await bridge.send('VKWebAppGetFriends');
+			//setUserFriend(friends);
 		}
 		fetchData();
 	}, []);
@@ -36,15 +38,14 @@ const App = () => {
 		setActivePanel(e.currentTarget.dataset.to);
 	}
 
-	//popout={popout} вставить в view чтобы крутилось говно
 	return (
 		<AdaptivityProvider>
 			<AppRoot>
 				<View activePanel={activePanel} >
-					<LoadingPage id='loadingPage' fetchedUser={fetchedUser} go={go} />
+					<LoadingPage id='loadingPage' userFriends={userFriends} fetchedUser={fetchedUser} go={go} />
 					<ContactPage id='contactPage' fetchedUser={fetchedUser} go={go} />
 					<Home id='home' fetchedUser={fetchedUser} go={go} />
-					<MapBox id='mapbox' fetchedUser={fetchedUser} go={go} />
+					<MapBox id='mapbox' userFriends={userFriends} fetchedUser={fetchedUser} go={go} />
 					<NewsPage id='newsPage' fetchedUser={fetchedUser} go={go} />
 					<AccountPage id='accountPage' fetchedUser={fetchedUser} go={go} />
 				</View>

@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 
 import {Panel, PanelHeader,PanelHeaderButton, Gradient, Header, Group, Title, List, Avatar, Cell, Counter} from '@vkontakte/vkui';
 import { Icon28UserOutline, Icon20ArrowLeftOutline, Icon28UsersOutline, Icon20DiamondOutline, Icon28WindowCheck} from '@vkontakte/icons';
+import AppUser from '../../modules/UserDataList';
 
-const AccountPage = ({id, go, fetchedUser}) => (
+const AccountPage = ({id, go, fetchedUser}) => {
+  let control = AppUser[fetchedUser.id].mapbox.instance;
+  control.map_initiated = false;
+
+  return (
     <Panel id={id}>
         <PanelHeader 
             left={
@@ -49,7 +54,8 @@ const AccountPage = ({id, go, fetchedUser}) => (
             </List>
         </Group>
     </Panel>
-);
+  );
+};
 
 AccountPage.propTypes = {
 	id: PropTypes.string.isRequired,
