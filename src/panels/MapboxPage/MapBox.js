@@ -19,10 +19,11 @@ function MapBox(props) {
     const iconsTargetRef = useRef();
     const baseTargetRef = useRef();
     let p = props;
-    control = AppUser[fetchedUser.id].mapbox.instance;
+    control = AppUser[p.fetchedUser.id].mapbox.instance;
     console.log(control.id);
-    mapCont = control.init(fetchedUser);
+    mapCont = control.init(p.fetchedUser);
     control.update_user_location(4, true);
+    console.log(AppUser[p.fetchedUser.id]);
 
     const openBase = () => {
         console.log('OpenBase')
@@ -36,7 +37,7 @@ function MapBox(props) {
                 <ActionSheetItem autoclose mode="destructive">Закрыть</ActionSheetItem>
             </ActionSheet>
         );
-    }
+    };
 
     const OpenInformation = () => {
         console.log(p)
@@ -53,7 +54,7 @@ function MapBox(props) {
                 <ActionSheetItem autoclose mode="destructive" before={<Icon16CancelCircleOutline width={28} height={28} />}>Закрыть</ActionSheetItem>
             </ActionSheet>
         );
-    }
+    };
 
 
     const OpenModal = () => {
@@ -72,7 +73,7 @@ function MapBox(props) {
                 <ActionSheetItem autoclose mode="destructive" before={<Icon16CancelCircleOutline width={28} height={28} />}>Закрыть</ActionSheetItem>
             </ActionSheet>
         );
-    }
+    };
 
     return (
         <SplitLayout popout={popout} id={p.id}>
@@ -104,7 +105,7 @@ function MapBox(props) {
             </Panel>
         </SplitLayout>
     );
-}
+};
 
 export default MapBox;
 

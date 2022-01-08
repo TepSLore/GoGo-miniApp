@@ -5,6 +5,18 @@ class FriendsProcessing{
     id = Math.random() * (10000 - 1000) + 1000;
     user_app_friends = []
 
+    getFriendsList(authToken){
+        bridge
+            .send("VKWebAppCallAPIMethod", {
+                "method": "friends.get", 
+                "request_id": this.id, 
+                "params": {
+                    "user_ids": "1", 
+                    "v":"{version}", 
+                    "access_token": authToken.access_token}
+                })
+    };
+
     find_friends_in_app(friends){
         for(const friend of friends){
             let friend_id = friend["id"]

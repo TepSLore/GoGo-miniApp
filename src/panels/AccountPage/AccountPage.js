@@ -7,7 +7,8 @@ import AppUser from '../../modules/UserDataList';
 
 const AccountPage = ({id, go, fetchedUser}) => {
   let control = AppUser[fetchedUser.id].mapbox.instance;
-  control.map_initiated = false;
+  control.left_from_map_page();
+  console.log(AppUser[fetchedUser.id])
 
   return (
     <Panel id={id}>

@@ -1,11 +1,9 @@
+import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 import React, { useState, useEffect, useRef } from 'react';
 import AppUser from '../../modules/UserDataList';
 import MapBoxControl from '../../modules/Mapbox/Mapbox-control';
 
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
-
 import "./LoadingPage.css"
-
 
 let instance_initiated = false;
 let control = null;
@@ -17,7 +15,7 @@ function LoadingPage({id, go, fetchedUser, userFriends}) {
 	else{
 		useRef();
         useRef();
-	}
+	};
 
 	setTimeout(() => {
 		if(Object.keys(AppUser).includes(String(fetchedUser.id))){
@@ -27,14 +25,14 @@ function LoadingPage({id, go, fetchedUser, userFriends}) {
 		} else{
 			console.log("Добавляю нового пользователя");
 			AppUser[fetchedUser.id] = {
-											"active" : true,
-											"position" : [null, null],
-											"road" : null,
-											"mapbox" : { 
-												"instance" : control
-											},
-											"siteID" : 159648
-										};
+										"active" : true,
+										"position" : [null, null],
+										"road" : null,
+										"mapbox" : { 
+											"instance" : control
+										},
+										"siteID" : 159648
+									};
 		};
 	}, 1000);
 

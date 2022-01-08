@@ -14,6 +14,7 @@ const App = () => {
 	const [activePanel, setActivePanel] = useState('loadingPage');
 	const [fetchedUser, setUser] = useState(null);
 	const [userFriends, setUserFriend] = useState(null);
+	const [authToken , setAuthToken] = useState(null);
 	
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -28,6 +29,8 @@ const App = () => {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
 			console.log("User info is requested");
+			const token = await bridge.send("VKWebAppGetAuthToken", {"app_id": 7977621, "scope": "friends,status"});
+			setAuthToken(token);
 			//const friends = await bridge.send('VKWebAppGetFriends');
 			//setUserFriend(friends);
 		}
