@@ -1,4 +1,4 @@
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
+import { Panel, Spinner } from '@vkontakte/vkui';
 import React, { useState, useEffect, useRef } from 'react';
 import AppUser from '../../modules/UserDataList';
 import MapBoxControl from '../../modules/Mapbox/Mapbox-control';
@@ -9,6 +9,12 @@ let instance_initiated = false;
 let control = null;
 
 function LoadingPage({id, go, fetchedUser, userFriends}) {
+	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => setShow(true),2000);
+	}, []);
+
 	if(!instance_initiated){
 		control = new MapBoxControl();
 	}
@@ -37,11 +43,21 @@ function LoadingPage({id, go, fetchedUser, userFriends}) {
 	}, 1000);
 
 	return(
-		<Panel id={id}  onClick={go} data-to="mapbox">
-			<div className='body'>
-				<div className='logo' />
-			</div> 
-		</Panel>
+		<>
+			{
+				show 
+					?
+					<Panel id={id} onClick={go} data-to="mapbox">
+						<div className='body'>
+							<div className='logo' />
+						</div>
+					</Panel>
+					:
+					<div style={{display: "flex", justifyContent: "center", justifyItems: "center", height: "100vh"}}>
+						<Spinner size="large" style={{ margin: "20px 0"}} />
+					</div>
+			}
+		</>
 	);
 };
 
