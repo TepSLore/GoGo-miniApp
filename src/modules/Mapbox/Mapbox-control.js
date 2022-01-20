@@ -84,7 +84,6 @@ class MapBoxControl{
 
         for (const feature of geojson.features) {
             let photo = this.userData.photo_200;
-            console.log(photo);
             // create a HTML element for each feature
             const el = document.createElement('div');
             el.innerHTML = "<img src=\""+photo+"\" class=\"user-image\"/>"

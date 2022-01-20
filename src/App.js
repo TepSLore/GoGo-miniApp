@@ -28,11 +28,19 @@ const App = () => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
-			console.log("User info is requested");
 			const token = await bridge.send("VKWebAppGetAuthToken", {"app_id": 7977621, "scope": "friends,status"});
 			setAuthToken(token);
-			//const friends = await bridge.send('VKWebAppGetFriends');
-			//setUserFriend(friends);
+			const friends = await bridge.send("VKWebAppCallAPIMethod", {
+				"method": "friends.get", 
+				"request_id": "requestFriends", 
+				"params": {
+					"user_ids": "1", 
+					"v":"5.81", 
+					"access_token":token.access_token
+				}
+			});
+			setUserFriend(friends);
+			console.log("User info is requested");
 		}
 		fetchData();
 	}, []);
@@ -55,6 +63,6 @@ const App = () => {
 			</AppRoot>
 		</AdaptivityProvider>
 	);
-}
+};
 
 export default App;

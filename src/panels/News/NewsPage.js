@@ -1,95 +1,128 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import PropTypes, { func } from 'prop-types';
 
-import {Panel, PanelHeader,PanelHeaderButton, CardGrid, Card, Group, ContentCard, UsersStack, Avatar} from '@vkontakte/vkui';
-import { Icon28UserAddOutline, Icon20ArrowLeftOutline} from '@vkontakte/icons';
+import {Panel, PanelHeader,PanelHeaderButton, CardGrid, Group, ContentCard, PullToRefresh} from '@vkontakte/vkui';
+import {Icon20ArrowLeftOutline} from '@vkontakte/icons';
 
 import AppUser from '../../modules/UserDataList';
+import ErrorImg from '../../img/ErrorImg.jpg';
 
+function createCard(item){
+  let srcImg;
 
-const NewsPage = ({id, go, fetchedUser}) => {
-  let control = AppUser[fetchedUser.id].mapbox.instance;
-  control.left_from_map_page();
-  console.log(AppUser[fetchedUser.id])
+  if(item.meta_value == ""){
+    srcImg = ErrorImg;
+  } else srcImg = 'https://myprogulkatest.ga/wp-content/uploads/' + item.meta_value;
 
   return(
-      <Panel id={id}>
-          <PanelHeader 
-              left={
-                  <PanelHeaderButton onClick={go} data-to="mapbox">
-                      <Icon20ArrowLeftOutline />
-                  </PanelHeaderButton>
-                  }>
-                  Новости
-          </PanelHeader>
-          {/* <Group
-          mode="plain"
-          header={<Header mode="secondary"><b>21.05.2021:</b> Информация по ЗНАЧКАМ!</Header>}>
-          <CardGrid size="l">
-            <Card mode="shadow">
-              <div style={{ height: 96 }} />
-            </Card>
-          </CardGrid>
-        </Group>
-        <Group
-          mode="plain"
-          header={<Header mode="secondary"><b>19.05.2021:</b> 6710 человек приняли участие в «Майской прогулке» 2021</Header>}>
-          <CardGrid size="l">
-            <Card mode="shadow">
-              <div style={{ height: 96 }} />
-            </Card>
-          </CardGrid>
-        </Group>
-        <Group
-          mode="plain"
-          header={<Header mode="secondary"><b>17.05.2021:</b> «Майская прогулка» 2021 проведена успешно!</Header>}>
-          <CardGrid size="l">
-            <Card mode="shadow">
-              <div style={{ height: 96 }} />
-            </Card>
-          </CardGrid>
-        </Group> */}
+    <ContentCard
+      onClick={() => { }}
+      src={srcImg}
+      header={item.post_title}
+      text={item.post_content.replace(/(\<(\/?[^>]+)>)/g, '')}
+      maxHeight={150}
+      key={item.post_id}
+    />
+  );
+};
+
+const NewsPage = ({id, go, fetchedUser}) => {
+  const [data, setData] = useState([]);
+  let error_post = [{
+    "meta_value" : "",
+    "post_content" : "Ошибка соединения с сервером",
+    "post_id" : 1,
+    "post_title" : "ERROR"
+  }];
+  let state = {
+    "data": data,
+    "fetching": false
+  };
+  let control = AppUser[fetchedUser.id].mapbox.instance;
+
+  control.left_from_map_page();
+
+  useEffect(async () => {
+    try{
+      let response = await fetch("https://backendnew-timurmikolenko.vercel.app:443/post");
+      console.log(response.ok)
+      if(response.ok){
+        let responseJson = await response.json();
+        let response_len = Object.keys(responseJson).length;
+        console.log(responseJson);
+
+        if(response_len != 0){
+          setData(responseJson.posts_data);
+        } else setData(error_post);
+      } else setData(error_post);
+    } catch{
+      setData(error_post);
+    };
+  }, []);
+
+  let onRefresh = () => {
+    state.fetching = true;
+
+    setTimeout( async () => {
+      try{
+        let response = await fetch("https://backendnew-timurmikolenko.vercel.app:443/post");
+        console.log(response.ok)
+        if(response.ok){
+          let responseJson = await response.json();
+          let response_len = Object.keys(responseJson).length;
+          console.log(responseJson);
+  
+          if(response_len != 0){
+            setData(responseJson.posts_data);
+          } else setData(error_post);
+        } else setData(error_post);
+      } catch{
+        setData(error_post);
+      };
+      
+      state.data = data;
+      state.fetching = false;
+    }, 700);
+  };
+  
+  return (
+    <Panel id={id}>
+      <PanelHeader
+        left={
+          <PanelHeaderButton onClick={go} data-to="mapbox">
+            <Icon20ArrowLeftOutline />
+          </PanelHeaderButton>
+        }>
+        Новости
+      </PanelHeader>
+
+      <PullToRefresh
+        onRefresh={onRefresh}
+        isFetching={state.fetching}
+      >
         <Group>
-            <CardGrid size="l">
-              <ContentCard
-                onClick={() => {}}
-                src="https://www.openbusiness.ru/upload/iblock/3fa/color_africa_money_art_design_currency_688782_pxhere.com.jpg"
-                header="21.05.2021: Информация по ЗНАЧКАМ!"
-                text="Делаем все, что в наших силах, чтобы ускорить поставку. Просим понять и простить."
-                maxHeight={150}
-              />
-              <ContentCard
-                onClick={() => {}}
-                src="https://майскаяпрогулка.екатеринбург.рф/media/news/news_90339_image_900x_.jpg"
-                header="19.05.2021: 6710 человек приняли участие в «Майской прогулке» 2021"
-                text="Цифра — официальная. Это те, кто зарегистрировался и оплатил оргвзнос. Это те, на кого мы рассчитываем, когда планируем количество необходимых ресурсов."
-                maxHeight={150}
-              />
-              <ContentCard
-                onClick={() => {}}
-                src="https://pp.userapi.com/c837439/v837439399/321f5/n8aGCOVgicY.jpg"
-                header="17.05.2021: «Майская прогулка» 2021 проведена успешно!"
-                text="Всем участникам «Майской прогулки» 2021 — поздравления с новым преодолением и благодарность! В этом году испытать себя было особенно нелегко, но вы справились."
-                maxHeight={150}
-              />
-            </CardGrid>
-          </Group>
-      </Panel>
+          <CardGrid size="l">
+            {
+              data.map(item => (createCard(item))).reverse()
+            }
+          </CardGrid>
+        </Group>
+      </PullToRefresh>
+    </Panel>
   );
 };
 
 NewsPage.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
+  id: PropTypes.string.isRequired,
+  go: PropTypes.func.isRequired,
+  fetchedUser: PropTypes.shape({
+    photo_200: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    city: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  }),
 };
 
 export default NewsPage;
-

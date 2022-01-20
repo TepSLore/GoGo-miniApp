@@ -31,9 +31,9 @@ function MapBox(props) {
             <ActionSheet
                 onClose={onClose}
                 className='scroll-pannel'>
-                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Kalin_shartash) }} autoclose>Покажи калин</ActionSheetItem>
-                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Ubileyniy) }} autoclose>Покажи юбилейный</ActionSheetItem>
-                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Autumn_marathon) }} autoclose>Покажи Осенний марафон</ActionSheetItem>
+                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Kalin_shartash) }} autoclose>20 км «Калиновка-Шарташ»</ActionSheetItem>
+                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Ubileyniy) }} autoclose>32 км «Юбилейный»</ActionSheetItem>
+                <ActionSheetItem onClick={() => { control.set_kml_layer(all_geojsons.Autumn_marathon) }} autoclose>42 км «Осенний марафон»</ActionSheetItem>
                 <ActionSheetItem autoclose mode="destructive">Закрыть</ActionSheetItem>
             </ActionSheet>
         );
@@ -69,7 +69,7 @@ function MapBox(props) {
                 }
                 toggleRef={baseTargetRef}
                 className='scroll-pannel'>
-                <GetQRCode text = {p.fetchedUser.id + " " + p.fetchedUser.first_name + " КП1"}/>
+                <GetQRCode text = {"https://backendnew-timurmikolenko.vercel.app/qr?id=" + p.fetchedUser.id + "&road_id=527105&control_point=1&road_name=Kalininskyi&long=" + control.curUserCoords[0] + "&lat=" + control.curUserCoords[1]}/>
                 <ActionSheetItem autoclose mode="destructive" before={<Icon16CancelCircleOutline width={28} height={28} />}>Закрыть</ActionSheetItem>
             </ActionSheet>
         );

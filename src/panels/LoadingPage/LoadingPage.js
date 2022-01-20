@@ -38,7 +38,7 @@ function LoadingPage({id, go, fetchedUser, userFriends}) {
 											"instance" : control
 										},
 										"siteID" : 159648
-									};
+			};
 		};
 	}, 1000);
 
